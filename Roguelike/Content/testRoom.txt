@@ -1,0 +1,5 @@
+width=7
+height=7
+//any center spot not specified is floor
+//by default, the outermost ring of the room is wall
+0,0=floor
