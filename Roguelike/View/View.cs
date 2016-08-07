@@ -40,7 +40,7 @@ namespace Roguelike.View
 
         /* More shit to organize*/
         LightsFX lightsFX;
-        public ShadowMapResolver shadowmapResolverA;
+        //public ShadowMapResolver shadowmapResolverA;
         ShadowCasterMap shadowMapWithObstacles;
         ShadowCasterMap shadowMapWithoutObstacles;
 
@@ -136,7 +136,7 @@ namespace Roguelike.View
             spriteBatch = new SpriteBatchWrapper(Game.GraphicsDevice, gameModel);
 
             //From Pinghao
-            LoadDynamicLight();
+            //LoadDynamicLight();
 
             toastFont = Game.Content.Load<SpriteFont>("Arial_s24");
             babyToastFont = Game.Content.Load<SpriteFont>("Arial");
@@ -406,7 +406,7 @@ namespace Roguelike.View
 
         private void NewShadowCode()
         {
-            GenerateLightTransparency();
+            //GenerateLightTransparency();
 
             DynamicShadows();
         }
@@ -422,11 +422,11 @@ namespace Roguelike.View
         /*This is being used for now until shadows are fixed*/
         private void DealWithShadows()
         {
-            GenerateLightTransparency();
+            //GenerateLightTransparency();
 
-            StaticShadows();
-            MonstersSaveShadowLevels();
-            AllShadows();
+            //StaticShadows();
+            //MonstersSaveShadowLevels();
+            //AllShadows();
             //ShadowsWithoutObstacles();
 
             graphics.GraphicsDevice.SetRenderTarget(screenGroundWith);
@@ -434,135 +434,135 @@ namespace Roguelike.View
             DrawAllThings();
 
             // This command impress a texture on another using 2xMultiplicative blend, which is perfect to paste our lights on the underlying image
-            this.lightsFX.PrintLightsOverTexture(null, spriteBatch.s, graphics, screenLightsWith, screenGroundWith, 0.975f);
+            //this.lightsFX.PrintLightsOverTexture(null, spriteBatch.s, graphics, screenLightsWith, screenGroundWith, 0.975f);
             //using (Stream stream = File.OpenWrite("picture.png"))
             //{
             //    screenLightsWith.SaveAsPng(stream, screenLightsWith.Width, screenLightsWith.Height);
             //}
-            if (shouldIGetData % shouldIGetDataMod == 0)
-            {
-                screenLightsWithout.GetData<Color>(colorData);
-            }
+            //if (shouldIGetData % shouldIGetDataMod == 0)
+            //{
+            //    screenLightsWithout.GetData<Color>(colorData);
+            //}
 
-            shouldIGetData = (shouldIGetData + 1) % shouldIGetDataMod;
+            //shouldIGetData = (shouldIGetData + 1) % shouldIGetDataMod;
                 
             // We re-print the elements not affected by the light (in this case the shadow casters)
             DrawThingsThatCastShadows();
 
-            this.lightsFX.PrintLightsOverTextureTransparent(null, spriteBatch.s, graphics, screenShadowTransparency, screenGroundWith, 0.975f);
+            //this.lightsFX.PrintLightsOverTextureTransparent(null, spriteBatch.s, graphics, screenShadowTransparency, screenGroundWith, 0.975f);
 
             //graphics.GraphicsDevice.SetRenderTarget(screenGroundWith);
             //this.lightsFX.PrintLightsOverTexture(null, spriteBatch.s, graphics, screenLightsWithout, screenGroundWithout, 0.95f);
             //spriteBatch.End();
         }
 
-        private void GenerateLightTransparency()
-        {
-            /* Create ShadowMap With Obstacles */
-            this.shadowMapTransparency.StartGeneratingShadowCasteMap(false);
-            //            foreach (GameObject shadowObj in gameModel.currentLevel.castsShadows)
-            //            {
-            //                shadowObj.DrawCaster(this.shadowMapWithObstacles);
-            //            }
-            this.shadowMapTransparency.EndGeneratingShadowCasterMap();
+        //private void GenerateLightTransparency()
+        //{
+        //    /* Create ShadowMap With Obstacles */
+        //    this.shadowMapTransparency.StartGeneratingShadowCasteMap(false);
+        //    //            foreach (GameObject shadowObj in gameModel.currentLevel.castsShadows)
+        //    //            {
+        //    //                shadowObj.DrawCaster(this.shadowMapWithObstacles);
+        //    //            }
+        //    this.shadowMapTransparency.EndGeneratingShadowCasterMap();
 
-            /* Resolve lights for map with obstacles*/
-            foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
-            {
-                LightSource light = lightObject.GetLightSource();
-                this.shadowmapResolverA.ResolveShadows(this.shadowMapTransparency, light, PostEffect.LinearAttenuation, light.Position);
-            }
+        //    /* Resolve lights for map with obstacles*/
+        //    foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
+        //    {
+        //        LightSource light = lightObject.GetLightSource();
+        //        this.shadowmapResolverA.ResolveShadows(this.shadowMapTransparency, light, PostEffect.LinearAttenuation, light.Position);
+        //    }
 
-            // We print the lights in an image
-            graphics.GraphicsDevice.SetRenderTarget(screenShadowTransparency);
+        //    // We print the lights in an image
+        //    graphics.GraphicsDevice.SetRenderTarget(screenShadowTransparency);
 
-            graphics.GraphicsDevice.Clear(Color.Black);
+        //    graphics.GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
-            foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
-            {
-                lightObject.GetLightSource().Draw(spriteBatch.s);
-            }
-            spriteBatch.End();
+        //    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+        //    foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
+        //    {
+        //        lightObject.GetLightSource().Draw(spriteBatch.s);
+        //    }
+        //    spriteBatch.End();
 
 
-            //spriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.Immediate, SaveStateMode.None); 
-            //graphics.GraphicsDevice.RenderState.DestinationBlend = Blend.Zero;
-            //graphics.GraphicsDevice.RenderState.SourceBlend = Blend.DestinationColor;
-            //graphics.GraphicsDevice.RenderState.BlendFunction = BlendFunction.Add;
+        //    //spriteBatch.Begin(SpriteBlendMode.Additive, SpriteSortMode.Immediate, SaveStateMode.None); 
+        //    //graphics.GraphicsDevice.RenderState.DestinationBlend = Blend.Zero;
+        //    //graphics.GraphicsDevice.RenderState.SourceBlend = Blend.DestinationColor;
+        //    //graphics.GraphicsDevice.RenderState.BlendFunction = BlendFunction.Add;
 
-            //graphics.GraphicsDevice.BlendFactor = Color.Transparent;
-            //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+        //    //graphics.GraphicsDevice.BlendFactor = Color.Transparent;
+        //    //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
-            //spriteBatch.Draw(lighting, Vector2.Zero, Color.White);
-            //spriteBatch.End();
+        //    //spriteBatch.Draw(lighting, Vector2.Zero, Color.White);
+        //    //spriteBatch.End();
 
-        }
+        //}
 
         /// <summary>
         /// Only drawing to the unused screenLightsWithout rendertarget, discarded after shadow data saved in monsters.
         /// </summary>
-        private void StaticShadows()
-        {
-            /* Create ShadowMap With Obstacles */
-            this.shadowMapWithObstacles.StartGeneratingShadowCasteMap(false);
-            foreach (GameObject shadowObj in gameModel.currentLevel.castsShadowsStatic)
-            {
-                shadowObj.DrawCaster(this.shadowMapWithObstacles);
-            }
-            this.shadowMapWithObstacles.EndGeneratingShadowCasterMap();
+        //private void StaticShadows()
+        //{
+        //    /* Create ShadowMap With Obstacles */
+        //    this.shadowMapWithObstacles.StartGeneratingShadowCasteMap(false);
+        //    foreach (GameObject shadowObj in gameModel.currentLevel.castsShadowsStatic)
+        //    {
+        //        shadowObj.DrawCaster(this.shadowMapWithObstacles);
+        //    }
+        //    this.shadowMapWithObstacles.EndGeneratingShadowCasterMap();
 
-            /* Resolve lights for map with obstacles*/
-            foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
-            {
-                LightSource light = lightObject.GetLightSource();
-                this.shadowmapResolverA.ResolveShadows(this.shadowMapWithObstacles, light, PostEffect.LinearAttenuation_BlurHigh, light.Position);
-            }
+        //    ///* Resolve lights for map with obstacles*/
+        //    //foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
+        //    //{
+        //    //    LightSource light = lightObject.GetLightSource();
+        //    //    //this.shadowmapResolverA.ResolveShadows(this.shadowMapWithObstacles, light, PostEffect.LinearAttenuation_BlurHigh, light.Position);
+        //    //}
 
-            // We print the lights in an image
-            graphics.GraphicsDevice.SetRenderTarget(screenLightsWithout);
+        //    // We print the lights in an image
+        //    graphics.GraphicsDevice.SetRenderTarget(screenLightsWithout);
 
-            graphics.GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
-            foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
-            {
-                lightObject.GetLightSource().Draw(spriteBatch.s);
-            }
-            spriteBatch.End();
-        }
+        //    graphics.GraphicsDevice.Clear(Color.Black);
+        //    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+        //    foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
+        //    {
+        //        lightObject.GetLightSource().Draw(spriteBatch.s);
+        //    }
+        //    spriteBatch.End();
+        //}
 
-        private void AllShadows()
-        {
-            /* Create ShadowMap With Obstacles */
-            this.shadowMapWithObstacles.StartGeneratingShadowCasteMap(false);
-            foreach (GameObject shadowObj in gameModel.currentLevel.castsShadowsStatic)
-            {
-                shadowObj.DrawCaster(this.shadowMapWithObstacles);
-            }
-            foreach (GameObject shadowObj in gameModel.currentLevel.castsShadowsDynamic)
-            {
-                shadowObj.DrawCaster(this.shadowMapWithObstacles);
-            }
-            this.shadowMapWithObstacles.EndGeneratingShadowCasterMap();
+        //private void AllShadows()
+        //{
+        //    /* Create ShadowMap With Obstacles */
+        //    this.shadowMapWithObstacles.StartGeneratingShadowCasteMap(false);
+        //    foreach (GameObject shadowObj in gameModel.currentLevel.castsShadowsStatic)
+        //    {
+        //        shadowObj.DrawCaster(this.shadowMapWithObstacles);
+        //    }
+        //    foreach (GameObject shadowObj in gameModel.currentLevel.castsShadowsDynamic)
+        //    {
+        //        shadowObj.DrawCaster(this.shadowMapWithObstacles);
+        //    }
+        //    this.shadowMapWithObstacles.EndGeneratingShadowCasterMap();
 
-            /* Resolve lights for map with obstacles*/
-            foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
-            {
-                LightSource light = lightObject.GetLightSource();
-                this.shadowmapResolverA.ResolveShadows(this.shadowMapWithObstacles, light, PostEffect.LinearAttenuation_BlurHigh, light.Position);
-            }
+        //    /* Resolve lights for map with obstacles*/
+        //    //foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
+        //    //{
+        //    //    LightSource light = lightObject.GetLightSource();
+        //    //    this.shadowmapResolverA.ResolveShadows(this.shadowMapWithObstacles, light, PostEffect.LinearAttenuation_BlurHigh, light.Position);
+        //    //}
 
-            // We print the lights in an image
-            graphics.GraphicsDevice.SetRenderTarget(screenLightsWith);
+        //    // We print the lights in an image
+        //    graphics.GraphicsDevice.SetRenderTarget(screenLightsWith);
 
-            graphics.GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
-            foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
-            {
-                lightObject.GetLightSource().Draw(spriteBatch.s);
-            }
-            spriteBatch.End();
-        }
+        //    graphics.GraphicsDevice.Clear(Color.Black);
+        //    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+        //    foreach (GameObject lightObject in gameModel.currentLevel.castsLights)
+        //    {
+        //        lightObject.GetLightSource().Draw(spriteBatch.s);
+        //    }
+        //    spriteBatch.End();
+        //}
 
         //private void ShadowsWithoutObstacles()
         //{
@@ -591,31 +591,32 @@ namespace Roguelike.View
         //}
 
         /* More functions that were in GameMain*/
-        private void LoadDynamicLight()
-        {
-            GraphicsDevice device = graphics.GraphicsDevice;
-            int vpWidth = device.Viewport.Width;
-            int vpHeight = device.Viewport.Height;
 
-            /* Create a new SpriteBatch, which can be used to draw textures. */
-            this.spriteBatch = new SpriteBatchWrapper(graphics.GraphicsDevice, gameModel);
-            this.lightsFX = new LightsFX(
-                Game.Content.Load<Effect>("resolveShadowsEffect"),
-                Game.Content.Load<Effect>("reductionEffect"),
-                Game.Content.Load<Effect>("2xMultiBlend"));
+        //private void LoadDynamicLight()
+        //{
+        //    GraphicsDevice device = graphics.GraphicsDevice;
+        //    int vpWidth = device.Viewport.Width;
+        //    int vpHeight = device.Viewport.Height;
 
-            this.shadowmapResolverA = new ShadowMapResolver(device, this.lightsFX, 192);
-            this.shadowMapWithObstacles = new ShadowCasterMap(PrecisionSettings.VeryHigh, graphics, this.spriteBatch);
-            this.shadowMapWithoutObstacles = new ShadowCasterMap(PrecisionSettings.VeryHigh, graphics, this.spriteBatch);
-            this.shadowMapTransparency = new ShadowCasterMap(PrecisionSettings.VeryHigh, graphics, this.spriteBatch);
-            this.screenLightsWith = new RenderTarget2D(device, vpWidth, vpHeight);
-            this.screenLightsWithout = new RenderTarget2D(device, vpWidth, vpHeight);
-            this.screenGroundWith = new RenderTarget2D(device, vpWidth, vpHeight);
-            this.screenGroundWithout = new RenderTarget2D(device, vpWidth, vpHeight);
-            this.screenShadowTransparency = new RenderTarget2D(device, vpWidth, vpHeight);
+        //    /* Create a new SpriteBatch, which can be used to draw textures. */
+        //    this.spriteBatch = new SpriteBatchWrapper(graphics.GraphicsDevice, gameModel);
+        //    this.lightsFX = new LightsFX(
+        //        Game.Content.Load<Effect>("resolveShadowsEffect"),
+        //        Game.Content.Load<Effect>("reductionEffect"),
+        //        Game.Content.Load<Effect>("2xMultiBlend"));
 
-            colorData = new Color[screenLightsWithout.Width * screenLightsWithout.Height];
-        }
+        //    this.shadowmapResolverA = new ShadowMapResolver(device, this.lightsFX, 192);
+        //    this.shadowMapWithObstacles = new ShadowCasterMap(PrecisionSettings.VeryHigh, graphics, this.spriteBatch);
+        //    this.shadowMapWithoutObstacles = new ShadowCasterMap(PrecisionSettings.VeryHigh, graphics, this.spriteBatch);
+        //    this.shadowMapTransparency = new ShadowCasterMap(PrecisionSettings.VeryHigh, graphics, this.spriteBatch);
+        //    this.screenLightsWith = new RenderTarget2D(device, vpWidth, vpHeight);
+        //    this.screenLightsWithout = new RenderTarget2D(device, vpWidth, vpHeight);
+        //    this.screenGroundWith = new RenderTarget2D(device, vpWidth, vpHeight);
+        //    this.screenGroundWithout = new RenderTarget2D(device, vpWidth, vpHeight);
+        //    this.screenShadowTransparency = new RenderTarget2D(device, vpWidth, vpHeight);
+
+        //    colorData = new Color[screenLightsWithout.Width * screenLightsWithout.Height];
+        //}
 
 
 
@@ -732,39 +733,39 @@ namespace Roguelike.View
         /// <summary>
         /// Let every monster in the map save their shadow level
         /// </summary>
-        public void MonstersSaveShadowLevels()
-        {
-            Dictionary<LayerType, HashSet<GameObject>> layers = gameModel.currentLevel.getGameObjects();
-            HashSet<GameObject> singleLayer = layers[LayerType.Stuff];
+//        public void MonstersSaveShadowLevels()
+//        {
+//            Dictionary<LayerType, HashSet<GameObject>> layers = gameModel.currentLevel.getGameObjects();
+//            HashSet<GameObject> singleLayer = layers[LayerType.Stuff];
 
-            foreach (GameObject go in singleLayer)
-            {
-//                if (go.CastsShadow())
-//                {
-                    Vector2 screenLocation = new Vector2(go.worldCenter.X - ((int)gameModel.currentLevel.mainChar.worldCenter.X - gameModel.gameView.ScreenWidthOver2),
-        go.worldCenter.Y - ((int)gameModel.currentLevel.mainChar.worldCenter.Y - gameModel.gameView.ScreenHeightOver2));
+//            foreach (GameObject go in singleLayer)
+//            {
+////                if (go.CastsShadow())
+////                {
+//                    Vector2 screenLocation = new Vector2(go.worldCenter.X - ((int)gameModel.currentLevel.mainChar.worldCenter.X - gameModel.gameView.ScreenWidthOver2),
+//        go.worldCenter.Y - ((int)gameModel.currentLevel.mainChar.worldCenter.Y - gameModel.gameView.ScreenHeightOver2));
 
-                    Color pixel = getShadowColorAtPixel((int)screenLocation.X, (int)screenLocation.Y);
+//                    Color pixel = getShadowColorAtPixel((int)screenLocation.X, (int)screenLocation.Y);
 
 
-                    byte r = pixel.R;
-                    byte g = pixel.G;
-                    byte b = pixel.B;
-                    byte level = Math.Max(r, Math.Max(g, b));
-                    if (level >= 85)
-                    {
-                        level = 255;
-                    }
-                    else
-                    {
-                        level = (byte)(level * 3);
-                    }
-                    pixel.R = level;
-                    pixel.G = level;
-                    pixel.B = level;
-                    go.ShadowLevel = pixel;
-                }
-            }
+//                    byte r = pixel.R;
+//                    byte g = pixel.G;
+//                    byte b = pixel.B;
+//                    byte level = Math.Max(r, Math.Max(g, b));
+//                    if (level >= 85)
+//                    {
+//                        level = 255;
+//                    }
+//                    else
+//                    {
+//                        level = (byte)(level * 3);
+//                    }
+//                    pixel.R = level;
+//                    pixel.G = level;
+//                    pixel.B = level;
+//                    go.ShadowLevel = pixel;
+//                }
+//            }
 //        }
 
 
@@ -775,22 +776,22 @@ namespace Roguelike.View
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>Color object containing RGBA</returns>
-        public Color getShadowColorAtPixel(int x, int y)
-        {
-            if (x < 0 || y < 0)
-            {
-                return Color.Black;
-            }
-            if (x >= 1600 || y >= 900)
-            {
-                return Color.Black;
-            }
+        //public Color getShadowColorAtPixel(int x, int y)
+        //{
+        //    if (x < 0 || y < 0)
+        //    {
+        //        return Color.Black;
+        //    }
+        //    if (x >= 1600 || y >= 900)
+        //    {
+        //        return Color.Black;
+        //    }
 
-            int twoDimWidth = screenLightsWithout.Width;
-            int oneDimIndex = x + y * twoDimWidth;
+        //    int twoDimWidth = screenLightsWithout.Width;
+        //    int oneDimIndex = x + y * twoDimWidth;
 
-            return colorData[oneDimIndex];
-        }
+        //    return colorData[oneDimIndex];
+        //}
 
         public void Toast(String bigText, String littleText)
         {

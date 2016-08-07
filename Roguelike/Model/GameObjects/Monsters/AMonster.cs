@@ -153,27 +153,27 @@ namespace Roguelike.Model.GameObjects.Monsters
         /// </summary>
         abstract public void DealDamage(GameTime gameTime);
 
-        public Color getShadowLevelAtRelLoc(Vector2 relLoc){
-            Model gameModel = currentLevel.gameModel;
-            View.View view = gameModel.gameView;
-            if (view.colorData == null)
-            {
-                shadowLevel =  Color.White;
-            }
-            Vector2 screenLocation = new Vector2(worldCenter.X+relLoc.X - ((int)gameModel.currentLevel.mainChar.worldCenter.X - gameModel.gameView.ScreenWidthOver2),
-                worldCenter.Y+relLoc.Y - ((int)gameModel.currentLevel.mainChar.worldCenter.Y - gameModel.gameView.ScreenHeightOver2));
+        //public Color getShadowLevelAtRelLoc(Vector2 relLoc){
+        //    Model gameModel = currentLevel.gameModel;
+        //    View.View view = gameModel.gameView;
+        //    if (view.colorData == null)
+        //    {
+        //        shadowLevel =  Color.White;
+        //    }
+        //    Vector2 screenLocation = new Vector2(worldCenter.X+relLoc.X - ((int)gameModel.currentLevel.mainChar.worldCenter.X - gameModel.gameView.ScreenWidthOver2),
+        //        worldCenter.Y+relLoc.Y - ((int)gameModel.currentLevel.mainChar.worldCenter.Y - gameModel.gameView.ScreenHeightOver2));
 
-            Color pixel = view.getShadowColorAtPixel((int)screenLocation.X, (int)screenLocation.Y);
-            byte r = pixel.R;
-            byte g = pixel.G;
-            byte b = pixel.B;
+        //    Color pixel = view.getShadowColorAtPixel((int)screenLocation.X, (int)screenLocation.Y);
+        //    byte r = pixel.R;
+        //    byte g = pixel.G;
+        //    byte b = pixel.B;
 
-            byte level = (byte)(((double)r + (double)g + (double)b) / 3);
-            pixel.R = level;
-            pixel.G = level;
-            pixel.B = level;
-            return pixel;
-        }
+        //    byte level = (byte)(((double)r + (double)g + (double)b) / 3);
+        //    pixel.R = level;
+        //    pixel.G = level;
+        //    pixel.B = level;
+        //    return pixel;
+        //}
 
         virtual public void OnMonsterDeath()
         {

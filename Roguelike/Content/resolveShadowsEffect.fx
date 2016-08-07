@@ -327,12 +327,12 @@ static const float2 OffsetAndWeight_Low[g_cKernelSize_Low] =
 
 float4 BlurHorizontallyLowPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	  float sum=0;
+	  float4 sum=0;
 	  float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 
       for (int i = 0; i < g_cKernelSize_Low; i++)
 	  {    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(1,0) ).r * OffsetAndWeight_Low[i].y;
+		sum += tex2Dlod(inputSampler, float4(TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(1, 0), 0, 0)).r * OffsetAndWeight_Low[i].y;
       }
 	  
 	  float4 result = sum;
@@ -343,12 +343,12 @@ float4 BlurHorizontallyLowPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 
 float4 BlurHorizontallyMidPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	  float sum=0;
+	  float4 sum=0;
 	  float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
       for (int i = 0; i < g_cKernelSize_Mid; i++)
 	  {    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(1,0) ).r * OffsetAndWeight_Mid[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(1,0), 0, 0)).r * OffsetAndWeight_Mid[i].y;
       }
 	  
 	  float4 result = sum;
@@ -359,13 +359,13 @@ float4 BlurHorizontallyMidPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 
 float4 BlurHorizontallyHighPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	  float sum=0;
+	  float4 sum=0;
 	  float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
       for (int i = 0; i < g_cKernelSize_High; i++)
 	  {    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(1,0) ).r * OffsetAndWeight_High[i].y;
-      }
+		  sum += tex2Dlod(inputSampler, float4(TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur, distance) / renderTargetSize.x * float2(1, 0), 0, 0)).r * OffsetAndWeight_High[i].y;
+	  }
 	  
 	  float4 result = sum;
 	  result.b = distance * 2;
@@ -375,12 +375,12 @@ float4 BlurHorizontallyHighPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 
 float4 BlurVerticallyLowNoAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 
 	for (int i = 0; i < g_cKernelSize_Low; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_Low[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1), 0, 0) ).r * OffsetAndWeight_Low[i].y;
 	}
 	  
 	float4 result = sum;
@@ -390,12 +390,12 @@ float4 BlurVerticallyLowNoAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 
 float4 BlurVerticallyMidNoAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 
 	for (int i = 0; i < g_cKernelSize_Mid; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_Mid[i].y;
+		sum += tex2Dlod(inputSampler, float4(TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur, distance) / renderTargetSize.x * float2(0, 1), 0, 0)).r * OffsetAndWeight_Mid[i].y;
 	}
 	  
 	float4 result = sum;
@@ -405,12 +405,12 @@ float4 BlurVerticallyMidNoAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 
 float4 BlurVerticallyHighNoAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 
 	for (int i = 0; i < g_cKernelSize_High; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_High[i].y;
+		sum += tex2Dlod(inputSampler, float4(TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur, distance) / renderTargetSize.x * float2(0, 1), 0, 0)).r * OffsetAndWeight_High[i].y;
 	}
 	  
 	float4 result = sum;
@@ -420,18 +420,18 @@ float4 BlurVerticallyHighNoAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 
 float4 BlurVerticallyLowLinearAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	//if (distanceMod == 0)
-	//	return 0;
+	if (distanceMod == 0)
+		return 0;
 
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
-	//if (distance >= 0.5f)
-	//	return 0;
+	if (distance >= 0.5f)
+		return 0;
 
 	for (int i = 0; i < g_cKernelSize_Low; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_Low[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1),0,0) ).r * OffsetAndWeight_Low[i].y;
 	}
 	  
 	float4 result = sum;
@@ -441,18 +441,18 @@ float4 BlurVerticallyLowLinearAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLO
 
 float4 BlurVerticallyMidLinearAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	//if (distanceMod == 0)
-	//	return 0;
+	if (distanceMod == 0)
+		return 0;
 
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
-	//if (distance >= 0.5f)
-	//	return 0;
+	if (distance >= 0.5f)
+		return 0;
 
 	for (int i = 0; i < g_cKernelSize_Mid; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_Mid[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1),0,0) ).r * OffsetAndWeight_Mid[i].y;
 	}
 	  
 	float4 result = sum;
@@ -462,18 +462,18 @@ float4 BlurVerticallyMidLinearAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLO
 
 float4 BlurVerticallyHighLinearAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	//if (distanceMod == 0)
-	//	return 0;
+	if (distanceMod == 0)
+		return 0;
 
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
-	//if (distance >= 0.5f)
-	//	return 0;
+	if (distance >= 0.5f)
+		return 0;
 
 	for (int i = 0; i < g_cKernelSize_High; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_High[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1),0,0) ).r * OffsetAndWeight_High[i].y;
 	}
 	  
 	float4 result = sum;
@@ -483,15 +483,15 @@ float4 BlurVerticallyHighLinearAttenuationPS(float2 TexCoord  : TEXCOORD0) : COL
 
 float4 BlurVerticallyLowCurveAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	//if (distanceMod == 0)
-	//	return 0;
+	if (distanceMod == 0)
+		return 0;
 
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
 	for (int i = 0; i < g_cKernelSize_Low; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_Low[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_Low[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1),0,0) ).r * OffsetAndWeight_Low[i].y;
 	}
 	 
 	 distance /= distanceMod;
@@ -503,15 +503,15 @@ float4 BlurVerticallyLowCurveAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR
 
 float4 BlurVerticallyMidCurveAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	//if (distanceMod == 0)
-	//	return 0;
+	if (distanceMod == 0)
+		return 0;
 
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
 	for (int i = 0; i < g_cKernelSize_Mid; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_Mid[i].y;
+		sum += tex2Dlod( inputSampler, float4( TexCoord + OffsetAndWeight_Mid[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1),0,0) ).r * OffsetAndWeight_Mid[i].y;
 	}
 	 
 	 distance /= distanceMod;
@@ -523,15 +523,15 @@ float4 BlurVerticallyMidCurveAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR
 
 float4 BlurVerticallyHighCurveAttenuationPS(float2 TexCoord  : TEXCOORD0) : COLOR0
 {
-	//if (distanceMod == 0)
-	//	return 0;
+	if (distanceMod == 0)
+		return 0;
 
-	float sum=0;
+	float4 sum=0;
 	float distance = tex2D( inputSampler, TexCoord).b * 0.5f;
 	  
 	for (int i = 0; i < g_cKernelSize_High; i++)
 	{    
-		sum += tex2D( inputSampler, TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1) ).r * OffsetAndWeight_High[i].y;
+		sum += tex2Dlod( inputSampler, float4(TexCoord + OffsetAndWeight_High[i].x * lerp(minBlur, maxBlur , distance)/renderTargetSize.x * float2(0,1),0,0) ).r * OffsetAndWeight_High[i].y;
 	}
 	 
 	 distance /= distanceMod;

@@ -79,7 +79,7 @@
     <Compile Include="Model\GameObjects\Monsters\AI\Pathfinding\AStar\PriorityQueue.cs" />
     <Compile Include="Model\GameObjects\Monsters\AI\Pathfinding\AStar\SpatialAStar.cs" />
     <Compile Include="Model\GameObjects\Monsters\AI\ShittyFollowAI.cs" />
-    <Compile Include="Model\GameObjects\Monsters\AI\ShittyLightAI.cs" />
+    <None Include="Model\GameObjects\Monsters\AI\ShittyLightAI.cs" />
     <Compile Include="Model\GameObjects\Monsters\AMonster.cs" />
     <Compile Include="Model\GameObjects\Monsters\GhostMonster.cs" />
     <Compile Include="Model\GameObjects\Monsters\MothMonster.cs" />
