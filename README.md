@@ -1,7 +1,7 @@
 # DESERT BUS 3
 
 
-This is the COMP460 senior design project created by Sarah Davies and Elliot Rivers and me at Rice a while ago.
+This is the COMP460 senior design project created by Sarah Davies, Elliot Rivers and me at Rice a while ago.
 
 Back then Monogame still required XNA 4.0 and a Content project. I'm now trying to get this working again with Monogame 3.5.1 and hopefully port this to UWP or Xamarin.
 
