@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Roguelike.View;
 using Roguelike.Model.Infrastructure;
-using Shadows2D;
+//using Shadows2D;
 
 namespace Roguelike.Model.GameObjects.Interactables
 {
@@ -104,13 +104,13 @@ namespace Roguelike.Model.GameObjects.Interactables
             }
         }
 
-        public override void DrawCaster(ShadowCasterMap shadowMap)
-        {
-            if (this.CastsShadow() && !isOpen)
-            {
-                shadowMap.AddShadowCaster(closedTexture, drawLocation, null, Color.White, base.textureRotation, origin, 1.0f, SpriteEffects.None, 1);
-            }
-        }
+        //public override void DrawCaster(ShadowCasterMap shadowMap)
+        //{
+        //    if (this.CastsShadow() && !isOpen)
+        //    {
+        //        shadowMap.AddShadowCaster(closedTexture, drawLocation, null, Color.White, base.textureRotation, origin, 1.0f, SpriteEffects.None, 1);
+        //    }
+        //}
 
 
         override public void SetBoundingPointsOffset()

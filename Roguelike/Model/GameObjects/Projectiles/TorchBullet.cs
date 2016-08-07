@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Roguelike.Model.Infrastructure;
-using Shadows2D;
+//using Shadows2D;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ namespace Roguelike.Model.GameObjects.Projectiles
 {
     class TorchBullet : GameObject
     {
-        LightSource torchLight;
+        //LightSource torchLight;
         //const double LIFE_SPAN = 15;
         const double DIM_SPAN = 4;
         //const int LIGHT_RADIUS = 350;
@@ -49,7 +49,7 @@ namespace Roguelike.Model.GameObjects.Projectiles
             layerType = LayerType.Stuff;
             lightColor = new Color(255, 180, 120, 128);
 
-            this.torchLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)currentLevel.mainChar.stats.torchRadius, LightAreaQuality.High, lightColor);
+            //this.torchLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)currentLevel.mainChar.stats.torchRadius, LightAreaQuality.High, lightColor);
             //DateTime startTime = new DateTime (); // the start time;
             alive = true;
             this.level = level;
@@ -134,7 +134,7 @@ namespace Roguelike.Model.GameObjects.Projectiles
             Vector2 screenLocation = new Vector2(worldCenter.X - ((int)gameModel.currentLevel.mainChar.worldCenter.X - gameModel.gameView.ScreenWidthOver2),
                 worldCenter.Y - ((int)gameModel.currentLevel.mainChar.worldCenter.Y - gameModel.gameView.ScreenHeightOver2));
 
-            torchLight.Position = new Vector2(screenLocation.X + 17, screenLocation.Y - 9);
+            //torchLight.Position = new Vector2(screenLocation.X + 17, screenLocation.Y - 9);
 
             //double elapsed = (double)watch.Elapsed.Seconds + 0.001 * watch.Elapsed.Milliseconds;
 
@@ -158,7 +158,7 @@ namespace Roguelike.Model.GameObjects.Projectiles
                 {
                     newRadius = 1;
                 }
-                this.torchLight.SetRadius(newRadius);
+                //this.torchLight.SetRadius(newRadius);
             }
 
             // make torches flicker, but not glowsticks
@@ -166,7 +166,7 @@ namespace Roguelike.Model.GameObjects.Projectiles
             {
                 if (gameTime.TotalGameTime.TotalMilliseconds - 50 > lightTimer)
                 {
-                    torchLight.Color.A = (byte)(alphaBase + (random.Next(alphaRadius) - (alphaRadius / 2)));
+                    //torchLight.Color.A = (byte)(alphaBase + (random.Next(alphaRadius) - (alphaRadius / 2)));
 
                     lightTimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
@@ -209,10 +209,10 @@ namespace Roguelike.Model.GameObjects.Projectiles
             }
         }
 
-        public override LightSource GetLightSource()
-        {
-            return torchLight;
-        }
+        //public override LightSource GetLightSource()
+        //{
+        //    return torchLight;
+        //}
 
         override public void SetBoundingPointsOffset()
         {

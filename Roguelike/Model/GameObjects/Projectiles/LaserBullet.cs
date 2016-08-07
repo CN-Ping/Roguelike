@@ -5,14 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Roguelike.View;
-using Shadows2D;
+//using Shadows2D;
 using Roguelike.Model.Infrastructure;
 
 namespace Roguelike.Model.GameObjects
 {
     public class LaserBullet : ABullet
     {
-        LightSource bulletLight;
+        //LightSource bulletLight;
 
         public LaserBullet(Level currentLevel)
             : base(currentLevel)
@@ -22,7 +22,7 @@ namespace Roguelike.Model.GameObjects
             SetBoundingPointsOffset();
 
             /* Light is adjusted for shot size */
-            this.bulletLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)(75 * currentLevel.mainChar.stats.shotSize), LightAreaQuality.High, new Color(255, 160, 100, 128));
+            //this.bulletLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)(75 * currentLevel.mainChar.stats.shotSize), LightAreaQuality.High, new Color(255, 160, 100, 128));
 
             /* adjustments for shotsize */
             textureWidthOver2 = (int)(textureWidth * currentLevel.mainChar.stats.shotSize) / 2;
@@ -36,7 +36,7 @@ namespace Roguelike.Model.GameObjects
             SetBoundingPointsOffset();
 
             /* Light is adjusted for shot size */
-            this.bulletLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)(75*currentLevel.mainChar.stats.shotSize), LightAreaQuality.High, new Color(255, 160, 100, 128));
+            //this.bulletLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)(75*currentLevel.mainChar.stats.shotSize), LightAreaQuality.High, new Color(255, 160, 100, 128));
             
             /* adjustments for shotsize */
             textureWidthOver2 = (int)(textureWidth * currentLevel.mainChar.stats.shotSize) / 2;
@@ -71,10 +71,10 @@ namespace Roguelike.Model.GameObjects
             return true;
         }
 
-        public override LightSource GetLightSource()
-        {
-            return bulletLight;
-        }
+        //public override LightSource GetLightSource()
+        //{
+        //    return bulletLight;
+        //}
 
         public override void Update(GameTime gameTime)
         {
@@ -82,7 +82,7 @@ namespace Roguelike.Model.GameObjects
             if (CastsLight())
             {
                 Vector2 location = new Vector2(worldCenter.X - ((int)currentLevel.mainChar.worldCenter.X - currentLevel.gameModel.gameView.ScreenWidthOver2), worldCenter.Y - ((int)currentLevel.mainChar.worldCenter.Y - currentLevel.gameModel.gameView.ScreenHeightOver2));
-                bulletLight.Position = location;
+                //bulletLight.Position = location;
             }
         }
 
@@ -91,7 +91,7 @@ namespace Roguelike.Model.GameObjects
             base.SetStats(startX, startY, playerXVel, playerYVel, dirX, dirY, shotSpeed);
 
             //bullshit to make the animation smoother
-            bulletLight.Position = new Microsoft.Xna.Framework.Vector2(-80, -80);
+            //bulletLight.Position = new Microsoft.Xna.Framework.Vector2(-80, -80);
         }
 
         public override void Refresh(global::Roguelike.Model.Infrastructure.Level l, int startX, int startY)
@@ -99,8 +99,8 @@ namespace Roguelike.Model.GameObjects
             base.Refresh(l, startX, startY);
 
             /* Light is adjusted for shot size */
-            this.bulletLight.Radius = (int)(75 * currentLevel.mainChar.stats.shotSize);
-            this.bulletLight.Color = new Color(255, 160, 100, 128);
+            //this.bulletLight.Radius = (int)(75 * currentLevel.mainChar.stats.shotSize);
+            //this.bulletLight.Color = new Color(255, 160, 100, 128);
 
             /* adjustments for shotsize */
             textureWidthOver2 = (int)(textureWidth * currentLevel.mainChar.stats.shotSize) / 2;

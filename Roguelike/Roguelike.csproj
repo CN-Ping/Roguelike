@@ -38,11 +38,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Menus\EndScreen.cs" />
-    <Compile Include="Menus\IntroSequence.cs" />
-    <Compile Include="Menus\MenuScreen.cs" />
-    <Compile Include="Menus\PauseScreen.cs" />
-    <Compile Include="Menus\SkillScreen.cs" />
+    <Compile Include="Content\Menus\EndScreen.cs" />
+    <Compile Include="Content\Menus\IntroSequence.cs" />
+    <Compile Include="Content\Menus\MenuScreen.cs" />
+    <Compile Include="Content\Menus\PauseScreen.cs" />
+    <Compile Include="Content\Menus\SkillScreen.cs" />
     <Compile Include="Model\GameObjects\Characters\MainCharacter.cs" />
     <Compile Include="Model\GameObjects\Characters\SkillTreeStats.cs" />
     <Compile Include="Model\GameObjects\Characters\StatsInstance.cs" />
@@ -100,14 +100,14 @@
     <Compile Include="Model\LevelGeneration\MonsterEntry.cs" />
     <Compile Include="Model\LevelGeneration\RoomParser.cs" />
     <Compile Include="Model\LevelGeneration\World.cs" />
-    <Compile Include="Model\Lighting\DynamicShadow\LightsFX.cs" />
-    <Compile Include="Model\Lighting\DynamicShadow\LightSource.cs" />
-    <Compile Include="Model\Lighting\DynamicShadow\QuadRenderComponent.cs" />
-    <Compile Include="Model\Lighting\DynamicShadow\ShadowCasterMap.cs" />
-    <Compile Include="Model\Lighting\DynamicShadow\ShadowMapReductionStep.cs" />
-    <Compile Include="Model\Lighting\DynamicShadow\ShadowMapResolver.cs" />
-    <Compile Include="Model\Lighting\Primitives\PolygonShape.cs" />
-    <Compile Include="Model\Lighting\Primitives\StandardBasicEffect.cs" />
+    <None Include="Model\Lighting\DynamicShadow\LightsFX.cs" />
+    <None Include="Model\Lighting\DynamicShadow\LightSource.cs" />
+    <None Include="Model\Lighting\DynamicShadow\QuadRenderComponent.cs" />
+    <None Include="Model\Lighting\DynamicShadow\ShadowCasterMap.cs" />
+    <None Include="Model\Lighting\DynamicShadow\ShadowMapReductionStep.cs" />
+    <None Include="Model\Lighting\DynamicShadow\ShadowMapResolver.cs" />
+    <None Include="Model\Lighting\Primitives\PolygonShape.cs" />
+    <None Include="Model\Lighting\Primitives\StandardBasicEffect.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Tiles\ATile.cs" />
     <Compile Include="Model\Tiles\DoorTile.cs" />
@@ -135,15 +135,16 @@
     <Compile Include="View\SpriteBatchWrapper.cs" />
     <Compile Include="View\TextureSplat.cs" />
     <Compile Include="View\View.cs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct2D1, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
-    <Reference Include="SharpDX.Direct3D9, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
-    <Reference Include="SharpDX.RawInput, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
-    <Reference Include="SharpDX.XInput, Version=2.6.3.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL" />
+    <Reference Include="MonoGame.Penumbra, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Penumbra.WindowsDX.1.1.0\lib\net45\MonoGame.Penumbra.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />

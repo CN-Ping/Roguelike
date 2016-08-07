@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Roguelike.Model.GameObjects;
 using System.Collections;
 using Roguelike.View;
-using Shadows2D;
+//using Shadows2D;
 using Roguelike.Model.Infrastructure;
 using Roguelike.Model.GameObjects.Monsters.AI.Pathfinding.AStar;
 #endregion
@@ -64,13 +64,13 @@ namespace Roguelike.Model
             spriteBatch.Draw(texture2D, location, null, Color.White, base.textureRotation, middle, 1.0f, SpriteEffects.None, 1);
         }
 
-        public override void DrawCaster(ShadowCasterMap shadowMap)
-        {
-           // Vector2 location = SpriteBatchWrapper.transformVector(base.xPos - textureWidth / 2, base.yPos - textureHeight / 2);
-            //CLEANUP
-            //Vector2 location = new Vector2(base.xPos - textureWidth / 2, base.yPos - textureHeight / 2);
-            shadowMap.AddShadowCaster(texture2D, drawLocation, textureWidth, textureHeight);
-        }
+        //public override void DrawCaster(ShadowCasterMap shadowMap)
+        //{
+        //   // Vector2 location = SpriteBatchWrapper.transformVector(base.xPos - textureWidth / 2, base.yPos - textureHeight / 2);
+        //    //CLEANUP
+        //    //Vector2 location = new Vector2(base.xPos - textureWidth / 2, base.yPos - textureHeight / 2);
+        //    shadowMap.AddShadowCaster(texture2D, drawLocation, textureWidth, textureHeight);
+        //}
 
         //abstract public void DrawTile(SpriteBatch spriteBatch, Vector2 location);
 

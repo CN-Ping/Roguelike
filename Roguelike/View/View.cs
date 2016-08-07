@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Penumbra;
 using Roguelike.Model.GameObjects;
 using Roguelike.Model;
-using Shadows2D;
+//using Shadows2D;
 #endregion
 
 namespace Roguelike.View
@@ -38,13 +39,13 @@ namespace Roguelike.View
         private Background background;
         private HUD gameHUD;
 
-        /* More shit to organize*/
-        LightsFX lightsFX;
-        //public ShadowMapResolver shadowmapResolverA;
-        ShadowCasterMap shadowMapWithObstacles;
-        ShadowCasterMap shadowMapWithoutObstacles;
+        ///* More shit to organize*/
+        //LightsFX lightsFX;
+        ////public ShadowMapResolver shadowmapResolverA;
+        //ShadowCasterMap shadowMapWithObstacles;
+        //ShadowCasterMap shadowMapWithoutObstacles;
 
-        ShadowCasterMap shadowMapTransparency;
+        //ShadowCasterMap shadowMapTransparency;
 
         RenderTarget2D screenLightsWith;
         RenderTarget2D screenLightsWithout;
@@ -96,11 +97,14 @@ namespace Roguelike.View
         Texture2D torchAlert;
         Vector2 torchAlertPosition;
 
-        public View(Roguelike game, GraphicsDeviceManager inGraphics)
+        private PenumbraComponent penumbra;
+
+        public View(Roguelike game, GraphicsDeviceManager inGraphics, GameServiceContainer serviceProvider)
         {
             Game = game;
             graphics = inGraphics;
             viewport = Game.GraphicsDevice.Viewport;
+            penumbra = (PenumbraComponent)serviceProvider.GetService(typeof(PenumbraComponent));
         }
 
         public void Initialize()
@@ -338,8 +342,7 @@ namespace Roguelike.View
             if (!gameModel.currentLevel.Ending)
             {
                 /* Put the shadows in. */
-                DealWithShadows();
-
+                DealWithShadows(gameTime);
                 /* Draw the HUD ontop of everything */
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 Dictionary<LayerType, HashSet<GameObject>> layers = gameModel.currentLevel.getGameObjects();
@@ -404,23 +407,8 @@ namespace Roguelike.View
 
         }
 
-        private void NewShadowCode()
-        {
-            //GenerateLightTransparency();
-
-            DynamicShadows();
-        }
-
-        private void DynamicShadows()
-        {
-            foreach (GameObject g in gameModel.currentLevel.castsShadowsDynamic)
-            {
-                //g.GenerateExclusiveShadow();
-            }
-        }
-
         /*This is being used for now until shadows are fixed*/
-        private void DealWithShadows()
+        private void DealWithShadows(GameTime gameTime)
         {
             //GenerateLightTransparency();
 
@@ -428,11 +416,17 @@ namespace Roguelike.View
             //MonstersSaveShadowLevels();
             //AllShadows();
             //ShadowsWithoutObstacles();
-
+            penumbra.SpriteBatchTransformEnabled = false;
+            penumbra.Transform = Matrix.CreateTranslation(new Vector3(new Vector2(viewport.Width / 2f, viewport.Height / 2f), 0.0f)) *
+                Matrix.CreateTranslation(new Vector3(Vector2.Zero, 0.0f)) *
+                Matrix.CreateRotationZ(0) *
+                Matrix.CreateScale(1, 1, 1) *
+                Matrix.CreateTranslation(new Vector3(Vector2.Zero, 0.0f));
+            penumbra.BeginDraw();
             graphics.GraphicsDevice.SetRenderTarget(screenGroundWith);
             graphics.GraphicsDevice.Clear(Color.Black);
             DrawAllThings();
-
+            penumbra.Draw(gameTime);
             // This command impress a texture on another using 2xMultiplicative blend, which is perfect to paste our lights on the underlying image
             //this.lightsFX.PrintLightsOverTexture(null, spriteBatch.s, graphics, screenLightsWith, screenGroundWith, 0.975f);
             //using (Stream stream = File.OpenWrite("picture.png"))
@@ -445,15 +439,15 @@ namespace Roguelike.View
             //}
 
             //shouldIGetData = (shouldIGetData + 1) % shouldIGetDataMod;
-                
+
             // We re-print the elements not affected by the light (in this case the shadow casters)
-            DrawThingsThatCastShadows();
+            //DrawThingsThatCastShadows();
 
             //this.lightsFX.PrintLightsOverTextureTransparent(null, spriteBatch.s, graphics, screenShadowTransparency, screenGroundWith, 0.975f);
 
             //graphics.GraphicsDevice.SetRenderTarget(screenGroundWith);
             //this.lightsFX.PrintLightsOverTexture(null, spriteBatch.s, graphics, screenLightsWithout, screenGroundWithout, 0.95f);
-            //spriteBatch.End();
+            spriteBatch.End();
         }
 
         //private void GenerateLightTransparency()
@@ -676,21 +670,21 @@ namespace Roguelike.View
             spriteBatch.End();
         }
 
-        private void DrawGround()
-        {
-            GraphicsDevice device = graphics.GraphicsDevice;
-            int vpWidth = device.Viewport.Width;
-            int vpHeight = device.Viewport.Height;
+        //private void DrawGround()
+        //{
+        //    GraphicsDevice device = graphics.GraphicsDevice;
+        //    int vpWidth = device.Viewport.Width;
+        //    int vpHeight = device.Viewport.Height;
 
-            //draw the tile texture tiles across the screen
-            Rectangle source = new Rectangle(0, 0, vpWidth, vpHeight);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
-            //spriteBatch.Draw(tileTexture, Vector2.Zero, source, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
-            //GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            gameModel.currentLevel.theWorld.DrawFloor(spriteBatch);
-            spriteBatch.End();
+        //    //draw the tile texture tiles across the screen
+        //    Rectangle source = new Rectangle(0, 0, vpWidth, vpHeight);
+        //    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
+        //    //spriteBatch.Draw(tileTexture, Vector2.Zero, source, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+        //    //GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
+        //    gameModel.currentLevel.theWorld.DrawFloor(spriteBatch);
+        //    spriteBatch.End();
 
-        }
+        //}
 
         public void StartGameInitialize()
         {

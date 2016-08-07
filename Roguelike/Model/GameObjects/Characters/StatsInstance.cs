@@ -76,7 +76,7 @@ namespace Roguelike.Model
                 else
                 {
                     currentLevel.gameModel.gameView.minimap.sightRadius = (int)Math.Ceiling(lightRange_ / 100) + 1;
-                    currentLevel.mainChar.LefreshLight();
+                    //currentLevel.mainChar.LefreshLight();
                 }
                     
             } }

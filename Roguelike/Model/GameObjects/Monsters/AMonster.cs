@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Roguelike.View;
 using Roguelike.Model.GameObjects.Monsters.AI;
-using Roguelike.Model.Lighting;
+//using Roguelike.Model.Lighting;
 using Roguelike.Model.Infrastructure;
 using Roguelike.Model.GameObjects.Pickups;
 using Roguelike.Util;
@@ -141,10 +141,10 @@ namespace Roguelike.Model.GameObjects.Monsters
             return true;
         }
 
-        public override void DrawCaster(Shadows2D.ShadowCasterMap shadowMap)
-        {
-            sprite.DrawCaster(shadowMap, drawLocation);
-        }
+        //public override void DrawCaster(Shadows2D.ShadowCasterMap shadowMap)
+        //{
+        //    sprite.DrawCaster(shadowMap, drawLocation);
+        //}
 
         abstract public void SecondaryUpdate(GameTime gameTime);
 

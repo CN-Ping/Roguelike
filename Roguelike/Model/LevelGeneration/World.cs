@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Roguelike.Model.LevelGeneration;
 using Roguelike.Model.LevelGeneration.GuidedGeneration;
 using Roguelike.View;
-using Shadows2D;
+//using Shadows2D;
 using Roguelike.Model.Infrastructure;
 using Roguelike.Model.GameObjects.Monsters;
 #endregion
@@ -153,23 +153,23 @@ namespace Roguelike.Model
             //}
         }
 
-        public void CastWall(ShadowCasterMap shadowMap)
-        {
-            for (int i = 0; i < representation.GetLength(0); i++)
-            {
-                for (int j = 0; j < representation.GetLength(1); j++)
-                {
-                    if (representation[i, j] != null)
-                    {
-                        /*Each tile is 100 by 100*/
-                        if (representation[i, j].tileType == TileType.Wall)
-                        {
-                            representation[i, j].DrawCaster(shadowMap);
-                        }
-                    }
-                }
-            }
-        }
+        //public void CastWall(ShadowCasterMap shadowMap)
+        //{
+        //    for (int i = 0; i < representation.GetLength(0); i++)
+        //    {
+        //        for (int j = 0; j < representation.GetLength(1); j++)
+        //        {
+        //            if (representation[i, j] != null)
+        //            {
+        //                /*Each tile is 100 by 100*/
+        //                if (representation[i, j].tileType == TileType.Wall)
+        //                {
+        //                    representation[i, j].DrawCaster(shadowMap);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
         public void DrawFloor(SpriteBatchWrapper spriteBatch)
         {
             /* Loop through each tile in the world and have it draw itself */

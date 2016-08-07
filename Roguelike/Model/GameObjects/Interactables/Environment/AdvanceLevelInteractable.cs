@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Roguelike.View;
 using Roguelike.Model.Infrastructure;
-using Shadows2D;
+//using Shadows2D;
 
 namespace Roguelike.Model.GameObjects.Interactables
 {

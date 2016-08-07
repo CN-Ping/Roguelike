@@ -3,11 +3,12 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Penumbra;
 using Roguelike.View;
 //using Roguelike.Util.ConsoleCommands;
 using Roguelike.Menus;
-using Ziggyware;
-using Shadows2D;
+//using Ziggyware;
+//using Shadows2D;
 #endregion
 
 namespace Roguelike
@@ -38,6 +39,7 @@ namespace Roguelike
         public ContentManager content;
 
         Random random = new Random();
+        private PenumbraComponent penumbra;
 
         public Roguelike()
             : base()
@@ -56,6 +58,13 @@ namespace Roguelike
 
             Content.RootDirectory = "Content";
             this.content = Content;
+
+            // Create our lighting component and register it as a service so that subsystems can access it.
+            penumbra = new PenumbraComponent(this)
+            {
+                AmbientColor = new Color(new Vector3(0.1f))
+            };
+            Services.AddService(penumbra);
 
         }
 
@@ -77,8 +86,8 @@ namespace Roguelike
         protected override void LoadContent()
         {
             /* Create the View and the Model */
-            gameView = new View.View(this, graphics);
-            gameModel = new Model.Model(this, ref spriteBatch);
+            gameView = new View.View(this, graphics, Services);
+            gameModel = new Model.Model(this, ref spriteBatch, Services);
             gameModel.Initialize();
 
             gameView.setModel(gameModel);
@@ -86,7 +95,7 @@ namespace Roguelike
 
             //spriteBatch = new SpriteBatchWrapper(GraphicsDevice, gameModel);
             Services.AddService(typeof(SpriteBatchWrapper), spriteBatch);
-
+            penumbra.Initialize();
             gameView.Initialize();
         }
 
@@ -117,6 +126,7 @@ namespace Roguelike
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Black);
 
             gameView.Draw(gameTime, gameModel.gameState);

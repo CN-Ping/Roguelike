@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework.Audio;
 using Roguelike.Model.GameObjects;
-using Roguelike.Model.Lighting;
+//using Roguelike.Model.Lighting;
 using Roguelike.util;
 using Roguelike.Model.GameObjects.Monsters;
-using Roguelike.Model.Lighting.Shape;
+//using Roguelike.Model.Lighting.Shape;
 using Microsoft.Xna.Framework.Graphics;
+using Penumbra;
 using Roguelike.Util;
 using Roguelike.Sound;
 using Roguelike.Model.GameObjects.Interactables;
@@ -20,6 +22,7 @@ using Roguelike.View;
 using Roguelike.Model.GameObjects.Monsters.Randomized;
 using Roguelike.Model.GameObjects.Pickups;
 using Roguelike.Model.LevelGeneration;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace Roguelike.Model.Infrastructure
 {
@@ -99,13 +102,20 @@ namespace Roguelike.Model.Infrastructure
 
         public double playthroughStartTimeSecs = -1;
 
+        private GameServiceContainer service;
+
+        private PenumbraComponent penumbra;
+        
+
         /// <summary>
         /// First level constructor
         /// </summary>
         /// <param name="modelIn">The model that this object will reference</param>
         /// <param name="levelNumberIn">The number of this level (0-indexed)</param>
-        private Level(Model modelIn)
+        private Level(Model modelIn, GameServiceContainer serviceProvider)
         {
+            service = serviceProvider;
+            InitPenumbra();
             LevelNumber = 0;
             gameModel = modelIn;
             walkTutorial = true;
@@ -117,8 +127,10 @@ namespace Roguelike.Model.Infrastructure
             songInstance.Play();
         }
 
-        private Level(Level oldLevel)
+        private Level(Level oldLevel, GameServiceContainer serviceProvider )
         {
+            service = serviceProvider;
+            InitPenumbra();
             LevelNumber = oldLevel.LevelNumber + 1;
             gameModel = oldLevel.gameModel;
 
@@ -152,9 +164,16 @@ namespace Roguelike.Model.Infrastructure
             songInstance.Play();
         }
 
-        public static Level createFirstLevel(Model modelIn)
+        private void InitPenumbra()
         {
-            return new Level(modelIn);
+            penumbra = (PenumbraComponent)service.GetService(typeof(PenumbraComponent));
+            penumbra.Hulls.Clear();
+            penumbra.Lights.Clear();
+        }
+
+        public static Level createFirstLevel(Model modelIn, GameServiceContainer serviceProvider)
+        {
+            return new Level(modelIn, serviceProvider);
         }
 
         private void AllInitialize()
@@ -214,6 +233,7 @@ namespace Roguelike.Model.Infrastructure
             playerStatsInstance = gameModel.skillTree.makeInstance(this);
             mainChar = new MainCharacter(this, 0, 0, playerStatsInstance);
             this.addGameObject(mainChar);
+            penumbra.Lights.Add(mainChar.playerLight);
             theWorld.FirstLevelInitialize();
             mainChar.worldCenter.X = gamePosX;
             mainChar.worldCenter.Y = gamePosY;
@@ -535,7 +555,7 @@ namespace Roguelike.Model.Infrastructure
         {
             songInstance.Stop();
 
-            Level l = new Level(this);
+            Level l = new Level(this, service);
 
             return l;
         }

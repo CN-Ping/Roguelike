@@ -183,32 +183,32 @@ namespace Roguelike.Model.GameObjects.Monsters
             return;
         }
 
-        public override void DrawCaster(Shadows2D.ShadowCasterMap shadowMap)
-        {
-            drawLocation.X = worldCenter.X - 50;
-            drawLocation.Y = worldCenter.Y - 75 / 2;
+        //public override void DrawCaster(Shadows2D.ShadowCasterMap shadowMap)
+        //{
+        //    drawLocation.X = worldCenter.X - 50;
+        //    drawLocation.Y = worldCenter.Y - 75 / 2;
 
-            if (velocity.X > 0) /* Sprite walks right*/
-            {
-                right.DrawCaster(shadowMap, drawLocation);
-            }
-            else if (velocity.X < 0) /* Sprite walks left*/
-            {
-                left.DrawCaster(shadowMap, drawLocation);
-            }
-            else if (velocity.Y < 0) /*Sprite walks up*/
-            {
-                up.DrawCaster(shadowMap, drawLocation);
-            }
-            else if (velocity.Y > 0) /*Sprite walks down*/
-            {
-                down.DrawCaster(shadowMap, drawLocation);
-            }
-            else /* Draw standing character */
-            {
-                shadowMap.AddShadowCaster(texture2D, drawLocation, null, Color.White, base.textureRotation, origin, 1.0f, SpriteEffects.None, 1);
-            }
-        }
+        //    if (velocity.X > 0) /* Sprite walks right*/
+        //    {
+        //        right.DrawCaster(shadowMap, drawLocation);
+        //    }
+        //    else if (velocity.X < 0) /* Sprite walks left*/
+        //    {
+        //        left.DrawCaster(shadowMap, drawLocation);
+        //    }
+        //    else if (velocity.Y < 0) /*Sprite walks up*/
+        //    {
+        //        up.DrawCaster(shadowMap, drawLocation);
+        //    }
+        //    else if (velocity.Y > 0) /*Sprite walks down*/
+        //    {
+        //        down.DrawCaster(shadowMap, drawLocation);
+        //    }
+        //    else /* Draw standing character */
+        //    {
+        //        shadowMap.AddShadowCaster(texture2D, drawLocation, null, Color.White, base.textureRotation, origin, 1.0f, SpriteEffects.None, 1);
+        //    }
+        //}
 
         public override void ApplyForceToOtherObjects(GameTime gameTime)
         {

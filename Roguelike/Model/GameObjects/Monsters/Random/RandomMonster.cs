@@ -56,9 +56,9 @@ namespace Roguelike.Model.GameObjects.Monsters.Randomized
         {
         }
 
-        public override void DrawCaster(Shadows2D.ShadowCasterMap shadowMap)
-        {
-        }
+        //public override void DrawCaster(Shadows2D.ShadowCasterMap shadowMap)
+        //{
+        //}
 
         public override void SecondaryUpdate(Microsoft.Xna.Framework.GameTime gameTime)
         {

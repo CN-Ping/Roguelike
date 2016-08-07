@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Roguelike.View;
 using Roguelike.Model.GameObjects.Monsters.AI;
 using Roguelike.Model.Infrastructure;
-using Shadows2D;
+//using Shadows2D;
 
 namespace Roguelike.Model.GameObjects.Monsters
 {
@@ -22,7 +22,7 @@ namespace Roguelike.Model.GameObjects.Monsters
 
         private int damage = 8;
 
-        private LightSource glowingThingy;
+        //private LightSource glowingThingy;
 
         private Model gameModel;
 
@@ -40,7 +40,7 @@ namespace Roguelike.Model.GameObjects.Monsters
             speed = 2;
             maxForceClamp = 2 * speed;
             layerType = LayerType.Stuff;
-            this.glowingThingy = new LightSource(currentLevel.gameModel.gameView.graphics, 50, LightAreaQuality.High, Color.Pink*0.5f);
+            //this.glowingThingy = new LightSource(currentLevel.gameModel.gameView.graphics, 50, LightAreaQuality.High, Color.Pink*0.5f);
             gameModel = level.gameModel;
             if (random == null)
             {
@@ -100,11 +100,11 @@ namespace Roguelike.Model.GameObjects.Monsters
             Vector2 screenLocation = new Vector2(worldCenter.X - ((int)gameModel.currentLevel.mainChar.worldCenter.X - gameModel.gameView.ScreenWidthOver2),
                worldCenter.Y - ((int)gameModel.currentLevel.mainChar.worldCenter.Y - gameModel.gameView.ScreenHeightOver2));
 
-            glowingThingy.Position = new Vector2(screenLocation.X, screenLocation.Y);
+            //glowingThingy.Position = new Vector2(screenLocation.X, screenLocation.Y);
 
             if (gameTime.TotalGameTime.TotalMilliseconds - 50 > lightTimer)
             {
-                glowingThingy.Color.A = (byte)(alphaBase + (random.Next(alphaRadius) - (alphaRadius / 2)));
+                //glowingThingy.Color.A = (byte)(alphaBase + (random.Next(alphaRadius) - (alphaRadius / 2)));
 
                 lightTimer = gameTime.TotalGameTime.TotalMilliseconds;
             }
@@ -210,9 +210,9 @@ namespace Roguelike.Model.GameObjects.Monsters
             return true;
         }
 
-        public override LightSource GetLightSource()
-        {
-            return this.glowingThingy;
-        }
+        //public override LightSource GetLightSource()
+        //{
+        //    return this.glowingThingy;
+        //}
     }
 }

@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.VisualBasic;
 using Roguelike.Model.GameObjects;
-using Roguelike.Model.Lighting;
+//using Roguelike.Model.Lighting;
 using Roguelike.util;
 using Roguelike.Model.GameObjects.Monsters;
-using Roguelike.Model.Lighting.Shape;
+//using Roguelike.Model.Lighting.Shape;
 using Microsoft.Xna.Framework.Graphics;
 using Roguelike.Util;
 using Roguelike.Sound;
@@ -66,14 +66,16 @@ namespace Roguelike.Model
 
         public LootGenerator g;
 
-        public Model(Roguelike game, ref SpriteBatchWrapper s)
+        private GameServiceContainer service;
+
+        public Model(Roguelike game, ref SpriteBatchWrapper s, GameServiceContainer serviceProvider)
         {
             Game = game;
             gameState = GameState.SplashScreen;
 
             s = new SpriteBatchWrapper(game.GraphicsDevice, this);
 
-            
+            service = serviceProvider;
 
             //initializeConsole(s.s);
 
@@ -122,7 +124,7 @@ namespace Roguelike.Model
         public void setView(View.View view)
         {
             gameView = view;
-            be = new StandardBasicEffect(gameView.graphics.GraphicsDevice);
+            //be = new StandardBasicEffect(gameView.graphics.GraphicsDevice);
             //be = new BasicEffect(gameView.graphics.GraphicsDevice);
         }
 
@@ -239,7 +241,7 @@ namespace Roguelike.Model
 
             //init level
             g = new LootGenerator();
-            currentLevel = Level.createFirstLevel(this);
+            currentLevel = Level.createFirstLevel(this, service);
 
             BulletPool.Init(currentLevel);
 

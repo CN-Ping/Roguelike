@@ -7,8 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Roguelike.View;
 using Microsoft.Xna.Framework.Audio;
+using Penumbra;
 using Roguelike.Model.GameObjects.Loot;
-using Shadows2D;
+//using Shadows2D;
 using Roguelike.Model.Infrastructure;
 using Roguelike.Model.GameObjects.Projectiles;
 using Roguelike.Util;
@@ -75,7 +76,13 @@ namespace Roguelike.Model.GameObjects
 
         bool moving = false;
 
-        LightSource playerLight;
+        // Lighting
+        public Light playerLight { get; } = new PointLight
+        {
+            Scale = new Vector2(80000),
+            Color = Color.White,
+            ShadowType = ShadowType.Occluded
+        };
 
         public AGun myGun;
 
@@ -150,7 +157,7 @@ namespace Roguelike.Model.GameObjects
 
             //this.playerLight = new LightSource(gameModel.gameView.graphics, 500, LightAreaQuality.High, Color.White);
             //(int)stats.lightRange
-            this.playerLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)stats.LightRange, LightAreaQuality.VeryHigh, new Color(255, 255, 255, 128));
+            //this.playerLight = new LightSource(currentLevel.gameModel.gameView.graphics, (int)stats.LightRange, LightAreaQuality.VeryHigh, new Color(255, 255, 255, 128));
 
             myGun = new StdPistolGun(currentLevel, (int)worldCenter.X, (int)worldCenter.Y);
 
@@ -813,10 +820,10 @@ namespace Roguelike.Model.GameObjects
             return true;
         }
 
-        public override LightSource GetLightSource()
-        {
-            return playerLight;
-        }
+        //public override LightSource GetLightSource()
+        //{
+        //    return playerLight;
+        //}
 
         private void startedMoving()
         {
@@ -868,11 +875,11 @@ namespace Roguelike.Model.GameObjects
             }
         }
 
-        internal void LefreshLight()
-        {
-            playerLight.Radius = (int)stats.LightRange;
-            playerLight.Size = new Vector2((float)playerLight.Radius * 2f);
-        }
+        //internal void LefreshLight()
+        //{
+        //    playerLight.Radius = (int)stats.LightRange;
+        //    playerLight.Size = new Vector2((float)playerLight.Radius * 2f);
+        //}
 
         //private void dropTorch(int relX, int relY)
         //{

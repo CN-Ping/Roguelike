@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Roguelike.Model.Infrastructure;
-using Shadows2D;
+//using Shadows2D;
 
 namespace Roguelike.Model.GameObjects.Loot
 {
@@ -43,13 +43,13 @@ namespace Roguelike.Model.GameObjects.Loot
         {
             if (updateCounter % updateMod == 0)
             {
-                Color c = toMe.GetLightSource().Color;
+                //Color c = toMe.GetLightSource().Color;
 
                 byte r = (byte)rng.Next(0, 255);
                 byte g = (byte)rng.Next(0, 255);
                 byte b = (byte)rng.Next(0, 255);
 
-                toMe.GetLightSource().Color = Color.Lerp(c, new Color(r, g, b), 0.1f);
+                //toMe.GetLightSource().Color = Color.Lerp(c, new Color(r, g, b), 0.1f);
             }
 
             updateCounter = (updateCounter + 1) % updateMod;

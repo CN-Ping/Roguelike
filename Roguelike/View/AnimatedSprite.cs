@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Shadows2D;
+//using Shadows2D;
 #endregion
 
 namespace Roguelike.View
@@ -143,13 +143,13 @@ namespace Roguelike.View
             spriteBatch.Draw(Texture, destination, source, Color.White);
         }
 
-        public void DrawCaster(ShadowCasterMap shadowMap, Vector2 location)
-        {
-            destination.X = (int)location.X;
-            destination.Y = (int)location.Y;
+        //public void DrawCaster(ShadowCasterMap shadowMap, Vector2 location)
+        //{
+        //    destination.X = (int)location.X;
+        //    destination.Y = (int)location.Y;
 
-            shadowMap.AddShadowCaster(Texture, destination, source);
-        }
+        //    shadowMap.AddShadowCaster(Texture, destination, source);
+        //}
 
         public Rectangle getSourceRectangle()
         {

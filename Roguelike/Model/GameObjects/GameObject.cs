@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Roguelike.Model.GameObjects.Monsters;
 using Roguelike.Model.GameObjects.Interactables;
 using Roguelike.View;
-using Shadows2D;
+//using Shadows2D;
 using Roguelike.Model.Infrastructure;
 using Roguelike.Model.GameObjects.Projectiles;
 using Roguelike.Util;
@@ -240,28 +240,28 @@ namespace Roguelike.Model.GameObjects
             return false;
         }
 
-        /// <summary>
-        /// Draws the light if the object casts a light. You must implement
-        /// this if your object casts light
-        /// </summary>
-        virtual public LightSource GetLightSource()
-        {
-            return null;
-        }
+        ///// <summary>
+        ///// Draws the light if the object casts a light. You must implement
+        ///// this if your object casts light
+        ///// </summary>
+        //virtual public LightSource GetLightSource()
+        //{
+        //    return null;
+        //}
 
         /// <summary>
         /// Draws the object to the ShadowCasterMap if the object casts a 
         /// shadow. Implement this for moving things.
         /// </summary>
         /// <param name="shadowMap"></param>
-        virtual public void DrawCaster(ShadowCasterMap shadowMap)
-        {
-            if (this.CastsShadow())
-            {
-                Vector2 location = new Vector2(worldCenter.X - textureWidth / 2, worldCenter.Y - textureHeight / 2);
-                shadowMap.AddShadowCaster(texture2D, location, textureWidth, textureHeight);
-            }
-        }
+        //virtual public void DrawCaster(ShadowCasterMap shadowMap)
+        //{
+        //    if (this.CastsShadow())
+        //    {
+        //        Vector2 location = new Vector2(worldCenter.X - textureWidth / 2, worldCenter.Y - textureHeight / 2);
+        //        shadowMap.AddShadowCaster(texture2D, location, textureWidth, textureHeight);
+        //    }
+        //}
 
         /// <summary>
         /// Returns a list of points defining a convex boundary for the object. It must be in 
